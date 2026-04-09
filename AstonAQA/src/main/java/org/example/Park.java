@@ -42,21 +42,23 @@ class Park {
             atraction.printInfo();
         }
     }
+
+    class Atraction {
+        private String name;
+        private String openingHours;
+        private int price;
+
+        Atraction(String name, String openingHours, int price){
+            this.name = name;
+            this.openingHours = openingHours;
+            this.price = price;
+        }
+
+        public void printInfo() {
+            System.out.println("Название: " + name + "; время работы: " + openingHours + "; стоимость: " + price);
+        }
+    }
 }
 
-class Atraction {
-    private String name;
-    private String openingHours;
-    private int price;
 
-    Atraction(String name, String openingHours, int price){
-        this.name = name;
-        this.openingHours = openingHours;
-        this.price = price;
-    }
-
-    public void printInfo() {
-        System.out.println("Название: " + name + "; время работы: " + openingHours + "; стоимость: " + price);
-    }
-}
 
