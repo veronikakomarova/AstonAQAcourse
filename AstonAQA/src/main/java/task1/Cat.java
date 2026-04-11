@@ -1,4 +1,4 @@
-package org.example;
+package task1;
 
 public class Cat extends Animal {
 
