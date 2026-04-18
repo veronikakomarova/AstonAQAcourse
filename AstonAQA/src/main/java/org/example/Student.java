@@ -8,15 +8,17 @@ public class Student {
     private String lastName;
     private String group;
     private int course;
-    private HashMap<String, Integer> grades;
+    private Map<String, Integer> grades;
 
-    Student(String firstName, String lastName,String group, int course, HashMap<String, Integer> grades){
+    Student(String firstName, String lastName,String group, int course, Map<String, Integer> grades){
         this.firstName = firstName;
         this.lastName = lastName;
         this.group = group;
         this.course = course;
         this.grades = grades;
     }
+
+
 
     public double getAverageGrades(){
         int sum = 0;
@@ -34,5 +36,10 @@ public class Student {
 
     public int getCourse(){
         return course;
+    }
+
+    @Override
+    public String toString(){
+        return firstName + " " + lastName + " - " + getAverageGrades();
     }
 }
