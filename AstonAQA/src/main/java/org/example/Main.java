@@ -59,6 +59,8 @@ public class Main {
                 ))
 
         ));
+
+        System.out.println("Задание 1:");
         StudentManager.printStudents(students,1);
         System.out.println();
 
@@ -73,6 +75,24 @@ public class Main {
         StudentManager.removeStudent(students);
         StudentManager.printStudents(students,1);
         StudentManager.printStudents(students,2);
+
+        System.out.println("Задание 2:");
+
+        TelephoneDirectory telephoneDirectory = new TelephoneDirectory();
+        telephoneDirectory.add("Иванов", "+375292230977");
+        telephoneDirectory.add("Иванов", "+375296653214");
+        telephoneDirectory.add("Петров", "+375296643889");
+        telephoneDirectory.add("Сидоров", "+375334428790");
+        telephoneDirectory.add("Конюхов", "+375331262424");
+
+        System.out.println("Телефоны Иванова: "  + telephoneDirectory.getPhones("Иванов"));
+        System.out.println("Телефоны Петрова: "  + telephoneDirectory.getPhones("Петров"));
+        System.out.println("Телефоны Сидорова: "  + telephoneDirectory.getPhones("Сидоров"));
+        System.out.println("Телефоны Конюхова: "  + telephoneDirectory.getPhones("Конюхов"));
+
+
     }
+
+
 
 }
