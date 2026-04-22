@@ -5,16 +5,19 @@ public class FactorialCalculator {
 
     public static void main(String[] args) {
         try {
-            System.out.println(FactorialCalculator.factorial(0));
+            System.out.println(FactorialCalculator.factorial(21));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    public static int factorial(int a) throws NegativeFactorialException {
+    public static long factorial(int a) throws NegativeFactorialException, MaxFactorialException {
         if (a < 0) {
             throw new NegativeFactorialException();
+        }
+        if (a > 20){
+            throw new MaxFactorialException();
         }
         long fact = 1;
 
