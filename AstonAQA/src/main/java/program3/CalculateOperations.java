@@ -1,6 +1,6 @@
 package program3;
 
-enum CalculateOperations {
+public enum CalculateOperations {
     PLUS,
     MINUS,
     MULTIPLY,

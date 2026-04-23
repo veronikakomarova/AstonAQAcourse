@@ -1,7 +1,5 @@
 package program3;
 
-import program1.FactorialCalculator;
-
 public class ArithmeticOperations {
 
     public static void main(String[] args){

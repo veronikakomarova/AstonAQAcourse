@@ -1,6 +1,6 @@
 package program4;
 
-public class ProgramFour {
+public class Compare {
     public static void main(String[] args) {
 
         System.out.println(compareResult(4,5));
