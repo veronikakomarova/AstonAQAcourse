@@ -1,22 +1,22 @@
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import program4.Compare;
 import program4.CompareResult;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+public class CompareTest extends Assert {
 
-public class CompareTest {
+    @DataProvider
+    public Object[][] getTestData() {
+        return new Object[][]{
+                {7, 7, CompareResult.EQUAL},
+                {8, 2, CompareResult.MORE},
+                {1, 9, CompareResult.LESS}};
+    }
 
-    @DisplayName("Сравнение двух чисел")
-    @ParameterizedTest
-    @CsvSource({
-            "7, 7, EQUAL",
-            "8, 2, MORE",
-            "1, 9, LESS"})
-    void compareResultTest(int left, int right, String expectedStr){
-        CompareResult expected = CompareResult.valueOf(expectedStr);
+    @Test(description = "Сравнение двух чисел", dataProvider = "getTestData")
+    public void compareResultTest(int left, int right, CompareResult expected) {
         CompareResult result = Compare.compareResult(left, right);
-        assertEquals(expected, result);
+        assertEquals(result, expected);
     }
 }

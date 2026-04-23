@@ -1,38 +1,36 @@
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import program3.ArithmeticOperations;
 import program3.CalculateOperations;
 import program3.UnknownOperationException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+public class ArithmaticOperationsTest extends Assert {
 
-public class ArithmaticOperationsTest {
+    @DataProvider
+    public Object[][] getTestData() {
+        return new Object[][]{
+                {2, 2, CalculateOperations.PLUS, 4},
+                {5, 3, CalculateOperations.MINUS, 2},
+                {3, 3, CalculateOperations.MULTIPLY, 9},
+                {12, 3, CalculateOperations.DIVIDE, 4}};
+    }
 
-    @DisplayName("Вычисление с допустимыми операциями")
-    @ParameterizedTest
-    @CsvSource({
-            "2, 2, PLUS, 4",
-            "5, 3, MINUS, 2",
-            "3, 3, MULTIPLY, 9",
-            "12, 3, DIVIDE, 4"})
-    void arithmeticOperationsTest(int left, int right, String operationName, double expected) throws UnknownOperationException {
-        CalculateOperations operation = CalculateOperations.valueOf(operationName);
+    @Test(description = "Вычисление с допустимыми операциями", dataProvider = "getTestData")
+    public void arithmeticOperationsTest(int left, int right, CalculateOperations operation, double expected) throws UnknownOperationException {
         double result = ArithmeticOperations.calculate(left, right, operation);
-        assertEquals(expected, result);
+        assertEquals(result, expected);
     }
 
-    @DisplayName("Вычисление с null операцией")
-    @Test
-    void nullOperationThrowsExceptionTest() {
-        assertThrows(UnknownOperationException.class, () -> ArithmeticOperations.calculate(4, 5, null));
+
+    @Test(description = "Вычисление с null операцией", expectedExceptions = UnknownOperationException.class)
+   public void nullOperationThrowsExceptionTest() throws UnknownOperationException{
+        ArithmeticOperations.calculate(4, 5, null);
     }
 
-    @DisplayName("Вычисление с неподдерживаемой операцией")
-    @Test
-    void unsupportedOperationThrowsExceptionTest() {
-        assertThrows(UnknownOperationException.class, () -> ArithmeticOperations.calculate(4, 5, CalculateOperations.OTHER));
+
+    @Test(description = "Вычисление с неподдерживаемой операцией", expectedExceptions = UnknownOperationException.class)
+   public void unsupportedOperationThrowsExceptionTest() throws UnknownOperationException{
+        ArithmeticOperations.calculate(4, 5, CalculateOperations.OTHER);
     }
 }
