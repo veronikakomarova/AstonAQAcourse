@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,13 +21,8 @@ public class MTSTests {
     private static WebDriver driver;
     private static WebDriverWait wait;
 
-    void acceptCookie(){
-        WebElement cookieButton = driver.findElement(By.id("cookie-agree"));
-        cookieButton.click();
-    }
-
     @BeforeAll
-    public static void setup(){
+    public static void loadDriver(){
         WebDriverManager.chromedriver().setup();
     }
 
@@ -44,42 +38,44 @@ public class MTSTests {
     }
 
     @AfterEach
-    void checkMts() {
+    void quitDriver() {
         driver.quit();
     }
 
 
     @Test
-    void checkLogo() {
+    void checkPaymentLogoDisplayed() {
         WebElement logoOfBlock = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/h2")));
         assertTrue(logoOfBlock.isDisplayed());
     }
 
     @Test
-    void checkTemplates(){
-        WebElement tempBelkart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[5]/img")));
-        assertTrue(tempBelkart.isDisplayed());
-        WebElement tempMasterCardSecure = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[4]/img")));
-        assertTrue(tempMasterCardSecure.isDisplayed());
-        WebElement tempMasterCard = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[3]/img")));
-        assertTrue(tempMasterCard.isDisplayed());
-        WebElement tempVisaVerified = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[2]/img")));
-        assertTrue(tempVisaVerified.isDisplayed());
-        WebElement tempVisa = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[1]/img")));
-        assertTrue(tempVisa.isDisplayed());
+    void checkPaymentIconsDisplayed(){
+        WebElement belkartIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[5]/img")));
+        assertTrue(belkartIcon.isDisplayed());
+        WebElement masterCardSecureIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[4]/img")));
+        assertTrue(masterCardSecureIcon.isDisplayed());
+        WebElement masterCardIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[3]/img")));
+        assertTrue(masterCardIcon.isDisplayed());
+        WebElement visaVerifiedIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[2]/img")));
+        assertTrue(visaVerifiedIcon.isDisplayed());
+        WebElement visaIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[2]/ul/li[1]/img")));
+        assertTrue(visaIcon.isDisplayed());
     }
 
     @Test
-    void checkLink(){
+    void checkPaymentServiceInfoLinkRedirect(){
+        final String expectedRedirectionUrl = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
+
         WebElement linkHelp = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/a"));
         linkHelp.click();
         String actualUrl = driver.getCurrentUrl();
-        String expUrl = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
-        assertEquals(expUrl, actualUrl);
+
+        assertEquals(expectedRedirectionUrl, actualUrl);
     }
 
     @Test
-    void checkButtonContinue(){
+    void checkPaymentButtonOpenModal(){
         WebElement dropDown = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[1]/div[1]/div[2]/button"));
         dropDown.click();
         WebElement uslugiSviazi = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/div[1]/div[1]/div[2]/ul/li[1]/p"));
@@ -95,9 +91,10 @@ public class MTSTests {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.cssSelector("iframe[src*='bepaid'], iframe[src*='checkout']")));
         WebElement modalWindow = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/div/div/div/app-payment-container")));
         assertTrue(modalWindow.isDisplayed());
-
-
     }
 
-
+    private void acceptCookie(){
+        WebElement cookieButton = driver.findElement(By.id("cookie-agree"));
+        cookieButton.click();
+    }
 }
