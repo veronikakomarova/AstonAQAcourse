@@ -1,8 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,6 +8,7 @@ import pageObject.OnlinePayment;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@DisplayName("Проверки для блока \"Онлайн пополнение без комиссии\"")
 public class MTSTests {
 
     private WebDriver driver;
@@ -37,13 +35,14 @@ public class MTSTests {
         driver.quit();
     }
 
-
+    @DisplayName("Проверка отображения названия для блока\"Онлайн пополнение без комиссии\"")
     @Test
     void checkPaymentLogoDisplayed() {
         assertTrue(onlinePayment
                 .isPaymentLogoDisplayed());
     }
 
+    @DisplayName("Проверка отображения иконок для платёжных систем")
     @Test
     void checkPaymentIconsDisplayed() {
         assertTrue(onlinePayment.isBelkartIconDisplayed());
@@ -53,6 +52,7 @@ public class MTSTests {
         assertTrue(onlinePayment.isVisaIconDisplayed());
     }
 
+    @DisplayName("Проверка работоспособности ссылки \"Подробнее о сервисе\"")
     @Test
     void checkPaymentServiceInfoLinkRedirect() {
 
@@ -65,6 +65,7 @@ public class MTSTests {
         assertEquals(expectedRedirectionUrl, actualUrl);
     }
 
+    @DisplayName("Проверка работоспособности кнопки\"Продолжить\"")
     @Test
     void checkPaymentButtonOpenModal() {
         onlinePayment
@@ -72,6 +73,7 @@ public class MTSTests {
         assertTrue(onlinePayment.isPaymentModalDisplayed());
     }
 
+    @DisplayName("Проверка отображения плейсхолдеров для варианта\"Услуги связи\"")
     @Test
     void checkConectionFieldsPlaceholders(){
         onlinePayment.selectService();
@@ -80,6 +82,7 @@ public class MTSTests {
         assertEquals("E-mail для отправки чека", onlinePayment.getConnectionEmailPlaceholder());
     }
 
+    @DisplayName("Проверка отображения плейсхолдеров для варианта\"Домашний интернет\"")
     @Test
     void checkHomeInternetFieldsPlaceholders(){
         onlinePayment.selectHomeInternet();
@@ -88,6 +91,7 @@ public class MTSTests {
         assertEquals("E-mail для отправки чека", onlinePayment.getInternetEmailPlaceholder());
     }
 
+    @DisplayName("Проверка отображения плейсхолдеров для варианта\"Рассрочка\"")
     @Test
     void checkInstallmentFieldsPlaceholders(){
         onlinePayment.selectInstallmentPlan();
@@ -96,6 +100,7 @@ public class MTSTests {
         assertEquals("E-mail для отправки чека", onlinePayment.getInstallmentEmailPlaceholder());
     }
 
+    @DisplayName("Проверка отображения плейсхолдеров для варианта\"Задолженность\"")
     @Test
     void checkDebtFieldsPlaceholders(){
         onlinePayment.selectDebt();
@@ -104,6 +109,7 @@ public class MTSTests {
         assertEquals("E-mail для отправки чека", onlinePayment.getDebtEmailPlaceholder());
     }
 
+    @DisplayName("Проверка заполнения и отображения данных для варианта \"Услуги связи\"")
     @Test
     void checkModalWindowFields(){
         onlinePayment.openPaymentModal("297777777", "15");

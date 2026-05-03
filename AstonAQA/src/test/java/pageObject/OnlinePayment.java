@@ -1,5 +1,6 @@
 package pageObject;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -79,43 +80,50 @@ public class OnlinePayment {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
     }
 
+    @Step("Принять кукки")
     public void acceptCookie() {
 
         click(cookieButton);
     }
 
+    @Step("Отображение названия для блока\"Онлайн пополнение без комиссии\"")
     public boolean isPaymentLogoDisplayed() {
 
         return isElementDisplayed(paymentLogo);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isBelkartIconDisplayed(){
 
         return isElementDisplayed(belkartIcon);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isMasterCardSecureIconDisplayed(){
 
         return isElementDisplayed(masterCardSecureIcon);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isMasterCardIconDisplayed(){
 
         return isElementDisplayed(masterCardIcon);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isVisaVerifiedIconDisplayed(){
 
         return isElementDisplayed(visaVerifiedIcon);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isVisaIconDisplayed(){
 
         return isElementDisplayed(visaIcon);
     }
 
 
-
+    @Step("Кликнуть на ссылку\"Подробнее о сервисе\"")
     public void clickPaymentServiceInfoLink() {
 
         click(linkHelp);
@@ -126,90 +134,111 @@ public class OnlinePayment {
         return driver.getCurrentUrl();
     }
 
+    @Step("Кликнуть на вариант дропдауна \"Услуги связи\"")
     public void selectService() {
         click(dropDown);
         click(uslugiSviazi);
     }
 
+    @Step("Кликнуть на вариант дропдауна \"Домашний интернет\"")
     public void selectHomeInternet(){
         click(dropDown);
         click(domashniyInternet);
     }
 
+    @Step("Кликнуть на вариант дропдауна \"Рассрочка\"")
     public void selectInstallmentPlan(){
         click(dropDown);
         click(rassrochka);
     }
 
+    @Step("Кликнуть на вариант дропдауна \"Задолженность\"")
     public void selectDebt(){
         click(dropDown);
         click(zadoljennost);
     }
 
+    @Step("Получить плейсхолдер")
     public String getPhoneNumbPlaceholder(){
         return getPlaceholder(phoneNumbField);
     }
 
+    @Step("Получить плейсхолдер")
     public String getInetrnetPhoneNumbPlaceholder(){
         return getPlaceholder(abonentNumbField);
     }
 
+    @Step("Получить плейсхолдер")
     public String getInstallmentPhonePlaceholder(){
         return getPlaceholder(nomerSchetaRassrochka);
     }
 
+    @Step("Получить плейсхолдер")
     public String getDebtPhoneNumbPlaceholder(){
         return getPlaceholder(nomerSchetaZadoljennost);
     }
 
+    @Step("Получить плейсхолдер")
     public String getConnectionSumPlaceholder(){
         return getPlaceholder(sumField);
     }
 
+    @Step("Получить плейсхолдер")
     public String getInternetSumPlaceholder(){
         return getPlaceholder(internetSumField);
     }
 
+    @Step("Получить плейсхолдер")
     public String getInstallmentSumPlaceholder(){
         return getPlaceholder(rassrochkaSumField);
     }
 
+    @Step("Получить плейсхолдер")
     public String getDebtSumPlaceholder(){
         return getPlaceholder(zadoljennostSumField);
     }
 
+    @Step("Получить плейсхолдер")
     public String getConnectionEmailPlaceholder(){
         return getPlaceholder(emailUslugiSviazi);
     }
 
+    @Step("Получить плейсхолдер")
     public String getInternetEmailPlaceholder(){
         return getPlaceholder(emailDomashniyInternet);
     }
 
+    @Step("Получить плейсхолдер")
     public String getInstallmentEmailPlaceholder(){
         return getPlaceholder(emailRassrochka);
     }
 
+    @Step("Получить плейсхолдер")
     public String getDebtEmailPlaceholder(){
         return getPlaceholder(emailZadoljennost);
     }
 
+
+    @Step("Заполнить поля с номером телефона и суммой")
     public void fillPaymentForm(String phoneNumber, String sum) {
         type(phoneNumbField, phoneNumber);
         type(sumField, sum);
     }
 
+    @Step("Нажать на кнопку \"Продолжить\"")
     public void submitPayment() {
 
         click(buttonContinue);
     }
 
+    @Step("Заполнить поля с номером телефона и суммой, нажать кнопку \"Продолжить\"")
     public void openPaymentModal(String phoneNumber, String sum) {
         selectService();
         fillPaymentForm(phoneNumber, sum);
         submitPayment();
     }
 
+    @Step("Отобразить модальное окно оплаты")
     public boolean isPaymentModalDisplayed() {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(paymentIframe));
         return isElementDisplayed(modalWindow);
@@ -220,6 +249,7 @@ public class OnlinePayment {
                 .getAttribute("placeholder");
     }
 
+    @Step("Перейти во фрейм")
     public void switchToPaymentFrame() {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(paymentIframe));
     }
@@ -230,54 +260,67 @@ public class OnlinePayment {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
     }
 
+    @Step("Получить текст суммы")
     public String getDescriptionCostText(){
         return getText(descriptionCost);
     }
 
+    @Step("Получить текст кнопки")
     public String getCostOnSubmitButtonText(){
         return getText(costOnSubmitButton);
     }
 
+    @Step("Получить текст соглашения")
     public String getCostOnAgreementText(){
         return getText(costOnAgreement);
     }
 
+    @Step("Получить текст телефона")
     public String getPhoneNumbModalText(){
         return getText(phoneNumbModal);
     }
 
+    @Step("Получить текст из поля номера карты")
     public String getCardNumberModalText(){
         return getText(cardNumberModal);
     }
 
+    @Step("Получить текст из поля срока действия карты")
     public String getValidityPeriodOfCardText(){
         return getText(validityPeriodOfCard);
     }
 
+    @Step("Получить текст из поля с кодом cvc")
     public String getCvcCodeText(){
         return getText(cvcCode);
     }
 
+    @Step("Получить текст из поля ФИО")
     public String getPersonDataText(){
         return getText(personData);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isVisaSystemModalDisplayed(){
         return isElementDisplayed(visaSystemModal);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isMasterCardSystemModalDisplayed(){
         return isElementDisplayed(masterCardSystemModal);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isBelkartSystemModalDisplayed(){
         return isElementDisplayed(belkartSystemModal);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isMaestroSystemModalDisplayed(){
         return isElementDisplayed(maestroSystemModal);
     }
 
+    @Step("Отображение иконки платёжной системы")
     public boolean isMirSystemModalDisplayed(){
         return isElementDisplayed(mirSystemModal);
     }
